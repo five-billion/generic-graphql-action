@@ -18,8 +18,17 @@ function getAllInputs() {
       return result;
     }
 
-    result[inputName] = yaml.load(value);
+    if (inputName === "variables") {
+      result.variables = JSON.parse(value);
+      return result;
+    }
 
+    if (inputName === "headers") {
+      result.headers = JSON.parse(value);
+      return result;
+    }
+
+    result[inputName] = yaml.load(value);
     return result;
   }, {});
 }
