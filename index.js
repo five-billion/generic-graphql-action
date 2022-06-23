@@ -52,7 +52,7 @@ async function main() {
       fs.writeFileSync(output, data);
     }
 
-    core.setOutput("data", { data });
+    core.setOutput("data", data);
   } catch (error) {
     core.debug(inspect(error));
     core.setFailed(error.message);
