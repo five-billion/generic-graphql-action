@@ -2073,7 +2073,8 @@ function getAllInputs() {
 
 async function main() {
   try {
-    const { query, api_endpoint, variables, headers, output } = getAllInputs();
+    const { query, api_endpoint, variables, headers, write_to } =
+      getAllInputs();
 
     core.info(query);
 
@@ -2086,8 +2087,8 @@ async function main() {
 
     core.info(`result: \n${data}`);
 
-    if (output) {
-      fs.writeFileSync(output, data);
+    if (write_to) {
+      fs.writeFileSync(write_to, data);
     }
 
     core.setOutput("data", data);
