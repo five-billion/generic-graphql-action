@@ -15,7 +15,7 @@ inputs:
   headers:
     description: (Optional) JSON string of additional headers to add to the request (i.e. auth token, etc...)
     required: false
-  output:
+  write_to:
     description: (Optional) Path to a output file (i.e. `test.json`)
     required: false
   variables:
