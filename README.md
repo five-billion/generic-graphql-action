@@ -1,12 +1,14 @@
-# Octokit Request Action
+# Generic Graphql API Action
 
 > A GitHub Action to send queries to generic GraphQL APIs
+
+Creates a `data` output with the results, and can be configured to save the results to a file
 
 [![Build Status](https://github.com/five-billion/generic-graphql-action/workflows/Test/badge.svg)](https://github.com/five-billion/generic-graphql-action/actions)
 
 ## Usage
 
-Minimal example
+Full example
 
 ```yml
 name: Log latest release
@@ -51,6 +53,16 @@ jobs:
 ```
 
 To access deep values of `outputs.data`, use [`fromJSON()`](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#fromjson).
+
+## Configuration
+
+| Input          | Type                | Required | Description                                                                                          |
+| -------------- | ------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| `api_endpoint` | String              | `YES`    | Full url to the GraphQL endpoint (i.e. `https://api.spacex.land/graphql`)                            |
+| `query`        | String              | `YES`    | The GraphQL query to run                                                                             |
+| `variables`    | JSON encoded String | `NO`     | Any GraphQL variables to include with the query as a JSON String                                     |
+| `write_to`     | String              | `NO`     | A path to write the raw response to (i.e. `./data/launches.json`)                                    |
+| `headers`      | JSON encoded String | `NO`     | Any headers to apply to the API call as a JSON String (i.e. `' { "Authorization" : "Bearer xxx" }'`) |
 
 ## Debugging
 

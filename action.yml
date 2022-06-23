@@ -13,13 +13,13 @@ inputs:
     required: true
 
   headers:
-    description: JSON string of additional headers to add to the request (i.e. auth token, etc...)
+    description: (Optional) JSON string of additional headers to add to the request (i.e. auth token, etc...)
     required: false
   output:
-    description: Path to a output file (i.e. `test.json`)
+    description: (Optional) Path to a output file (i.e. `test.json`)
     required: false
   variables:
-    description: JSON string of query variables to send to the request
+    description: (Optional) JSON string of query variables to send to the request
     required: false
 outputs:
   data:
