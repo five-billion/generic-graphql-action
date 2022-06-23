@@ -1,12 +1,26 @@
-name: GitHub GraphQL API Query
-description: "Send queries to GitHub's GraphQL API"
+name: Generic GraphQL API Query
+author: Five Billion, Inc, Bob Breznak
+description: "Send queries to generic GraphQL APIs"
 branding:
-  icon: "box"
+  icon: download
   color: gray-dark
 inputs:
-  query:
-    description: "Your GraphQL query, see https://developer.github.com/v4/"
+  api_endpoint:
+    description: "The GraphQL endpoint (i.e. `https://api.spacex.land/graphql/`)"
     required: true
+  query:
+    description: "The GraphQL query to execute"
+    required: true
+
+  headers:
+    description: JSON string of additional headers to add to the request (i.e. auth token, etc...)
+    required: false
+  output:
+    description: Path to a output file (i.e. `test.json`)
+    required: false
+  variables:
+    description: JSON string of query variables to send to the request
+    required: false
 outputs:
   data:
     description: 'The "data" key of the GraphQL response body'
