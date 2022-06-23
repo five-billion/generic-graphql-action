@@ -48,4 +48,4 @@ jobs:
               }
             }
       - run: "echo 'get_launches data ${{ steps.get_launches.outputs.data }}'"
-      - run: "echo First Mission: `echo ${{ steps.get_launches.outputs.data }} | jq '.launches[0].mission_name'`"
+      - run: "echo First Mission: `echo '${{ steps.get_launches.outputs.data }}' | jq -r '.launches[0].mission_name'`"
