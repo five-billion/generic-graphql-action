@@ -47,4 +47,4 @@ jobs:
                 launch_date_utc
               }
             }
-      - run: "echo 'first launch mission_name ${{ steps.get_launches.outputs.data.launches[0] }}'"
+      - run: "echo 'first launch mission_name ${{ steps.get_launches.outputs.data }}'"
