@@ -43,14 +43,16 @@ async function main() {
     const result = await request(api_endpoint, query, variables, headers);
 
     core.info(`< 200 ${Date.now() - time}ms`);
-    core.info(`result: \n${result}`);
+
+    const data = JSON.stringify(result, null, 2);
+
+    core.info(`result: \n${data}`);
 
     if (output) {
-      fs.writeFileSync(output, JSON.stringify(result, null, 2));
+      fs.writeFileSync(output, data);
     }
 
-    core.setOutput("data", result);
-    return result;
+    core.setOutput("data", data);
   } catch (error) {
     core.debug(inspect(error));
     core.setFailed(error.message);
