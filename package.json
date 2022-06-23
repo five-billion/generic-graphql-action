@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@semantic-release/git": "^9.0.0",
+    "@vercel/ncc": "^0.34.0",
     "@zeit/ncc": "^0.22.3",
     "js-yaml": "^4.0.0",
     "semantic-release": "^17.3.0"
