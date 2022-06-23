@@ -1,8 +1,8 @@
 # Octokit Request Action
 
-> A GitHub Action to send queries to GitHub's GraphQL API
+> A GitHub Action to send queries to generic GraphQL APIs
 
-[![Build Status](https://github.com/octokit/graphql-action/workflows/Test/badge.svg)](https://github.com/octokit/graphql-action/actions)
+[![Build Status](https://github.com/five-billion/generic-graphql-action/workflows/Test/badge.svg)](https://github.com/five-billion/generic-graphql-action/actions)
 
 ## Usage
 
@@ -19,27 +19,38 @@ jobs:
   logLatestRelease:
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/graphql-action@v2.x
-        id: get_latest_release
+      - uses: five-billion/generic-graphql-action@v1.x
+        id: get_launches
         with:
+          api_endpoint: "https://api.spacex.land/graphql/"
+          headers:
+            some-header-key: some-header-value
+          output: categories.json
+          variables:
+            limit: 5
+            sort: launch_date_utc
           query: |
-            query release($owner:String!,$repo:String!) {
-              repository(owner:$owner,name:$repo) {
-                releases(first:1) {
-                  nodes {
+            query First5Launches($limit: Int, $sort: String) {
+              launches(limit: $limit, sort: $sort) {
+                mission_name
+                mission_id
+                rocket {
+                  rocket_name
+                  rocket {
+                    company
                     name
-                    createdAt
-                    tagName
-                    description
+                    mass {
+                      kg
+                    }
                   }
                 }
+                launch_site {
+                  site_name
+                }
+                launch_date_utc
               }
             }
-          owner: ${{ github.event.repository.owner.name }}
-          repo: ${{ github.event.repository.name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: "echo 'latest release: ${{ steps.get_latest_release.outputs.data }}'"
+      - run: "echo 'first launch mission_name ${{ steps.get_launches.outputs.data.launches[0] }}'"
 ```
 
 To access deep values of `outputs.data`, use [`fromJSON()`](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#fromjson).
@@ -49,9 +60,6 @@ To access deep values of `outputs.data`, use [`fromJSON()`](https://docs.github.
 To see additional debug logs, create a secret with the name: `ACTIONS_STEP_DEBUG` and value `true`.
 
 ## How it works
-
-`octokit/graphql-action` is using [`@octokit/graphql`](https://github.com/octokit/graphql.js/) internally with the addition
-that requests are automatically authenticated using the `GITHUB_TOKEN` environment variable. It is required to prevent rate limiting, as all anonymous requests from the same origin count against the same low rate.
 
 The actions sets `data` output to the response data. Note that it is a string, you should use [`fromJSON()`](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#fromjson) to access any value of the response. The action also sets `headers` (again, to a JSON string) and `status`.
 

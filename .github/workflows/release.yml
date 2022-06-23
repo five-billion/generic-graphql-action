@@ -1,7 +1,8 @@
-"on":
+on:
   push:
     branches:
       - master
+
 name: release
 jobs:
   release:
@@ -17,10 +18,8 @@ jobs:
       - run: npm run build
       - run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GR2M_PAT_FOR_SEMANTIC_RELEASE }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: >-
           git push
-          https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          https://x-access-token:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git
           HEAD:refs/heads/v2.x
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
