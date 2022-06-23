@@ -17,7 +17,7 @@ jobs:
         run: yarn
 
       - name: Build
-        run: yarn build:development
+        run: yarn build
 
       - uses: ./
         id: get_launches
