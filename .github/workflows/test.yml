@@ -24,7 +24,7 @@ jobs:
         with:
           api_endpoint: "https://api.spacex.land/graphql/"
           headers: '{ "some-header-key": "some-header-value" }'
-          output: categories.json
+          output: launches.json
           variables: '{ "limit": 5, "sort": "launch_date_utc" }'
           query: |
             query First5Launches($limit: Int, $sort: String) {
@@ -49,3 +49,4 @@ jobs:
             }
       - run: "echo 'get_launches data ${{ steps.get_launches.outputs.data }}'"
       - run: "echo First Mission: `echo '${{ steps.get_launches.outputs.data }}' | jq -r '.launches[0].mission_name'`"
+      - run: "echo 'Contents of launches.json' && cat launches.json"

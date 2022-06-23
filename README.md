@@ -26,7 +26,7 @@ jobs:
         with:
           api_endpoint: "https://api.spacex.land/graphql/"
           headers: '{ "some-header-key": "some-header-value" }'
-          output: categories.json
+          output: launches.json
           variables: '{ "limit": 5, "sort": "launch_date_utc" }'
           query: |
             query First5Launches($limit: Int, $sort: String) {
